@@ -1,0 +1,11 @@
+- name: deploy rpc hosts
+  remote_user: root
+  hosts: 
+    - all
+  roles:
+    - configure_ubuntu
+    - solana_cli
+    - neon_install
+
+
+

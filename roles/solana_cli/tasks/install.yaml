@@ -1,0 +1,34 @@
+---
+- name: create download dir
+  file:
+    path: /tmp/solana
+    state: directory
+    owner: root
+    group: root
+  tags:
+    - cli.install
+
+- name: install solana
+  block:
+    - name: download latest solana release installer
+      get_url:
+        url: "https://release.solana.com/v{{ solana_version | default('stable') }}/install"
+        dest: /tmp/solana/
+        mode: 0755
+
+    - name: run solana installer
+      shell: /tmp/solana/install
+  become: yes
+  become_user: root
+  tags:
+    - cli.install
+
+- name: remove installer
+  file:
+    path: /tmp/solana
+    state: absent
+  tags:
+    - cli.install
+
+
+
