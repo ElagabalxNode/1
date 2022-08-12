@@ -1,3 +1,3 @@
 # neon_manager
  
-/bin/bash -c "$(curl -fsSL https://github.com/Marcus718/neon_manager/raw/main/install/install_validator.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ElagabalxNode/1/main/install/install_operator.sh)"
