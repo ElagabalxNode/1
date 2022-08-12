@@ -28,7 +28,7 @@ postgres_user: neon-proxy
 postgres_password: neon-proxy-pass
 
 #solana_config
-solana_version: 1.8.11
+solana_version: "1.10.32"
 solana_rpc_port: 8899
 open_solana_ports_start: 8000
 open_solana_ports_end: 10000

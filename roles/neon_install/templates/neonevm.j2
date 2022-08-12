@@ -2,8 +2,9 @@
 
 set -x
 
-docker run --rm --network=host \
+docker run -rm --network=host \
 {% if neonevm_chain_id is defined or neonevm_network in neonevm_chains %}
+                -e CONFIG=devnet
                 -e NEON_CHAIN_ID={{ neonevm_chain_id|default(neonevm_chains[neonevm_network]) }} \
                 -e POSTGRES_DB={{ postgres_db }} \
                 -e POSTGRES_USER={{ postgres_user }} \

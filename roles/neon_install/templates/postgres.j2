@@ -2,9 +2,9 @@
 
 set -x
 
-docker run --rm -ti --network=host \
+docker run -rm --network=host \
 -e POSTGRES_DB={{ postgres_db }} \
 -e POSTGRES_USER={{ postgres_user }} \
 -e POSTGRES_PASSWORD={{ postgres_password }} \
---name=postgres 
+--name=postgres \
 postgres:14.0
