@@ -53,17 +53,17 @@ install_operator () {
   usermod -aG docker $USER
   systemctl enable docker
 
-  #echo "Downloading Neon operator manager"
-  #cmd="https://github.com/ElagabalxNode/1/archive/refs/heads/main.zip"
-  #ver="main"
-  #echo "starting $cmd"
-  #curl -fsSL "$cmd" --output neon_manager.zip
-  #echo "Unpacking"
-  #unzip ./neon_manager.zip -d .
+  echo "Downloading Neon operator manager"
+  cmd="https://github.com/ElagabalxNode/1/archive/refs/heads/main.zip"
+  ver="main"
+  echo "starting $cmd"
+  curl -fsSL "$cmd" --output neon_manager.zip
+  echo "Unpacking"
+  unzip ./neon_manager.zip -d .
 
-  #mv neon_manager-$ver* neon_manager
-  #rm ./neon_manager.zip
-  #cd ./neon_manager || exit
+  mv neon_manager-$ver* neon_manager
+  rm ./neon_manager.zip
+  cd ./neon_manager || exit
   
   #shellcheck disable=SC2154
   #echo "pwd: $(pwd)"
