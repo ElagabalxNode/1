@@ -8,8 +8,9 @@ User=root
 Group=root
 PermissionsStartOnly=true
 TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker stop postgresl
-ExecStartPre=-/usr/bin/docker rm postgresl
+ExecStartPre=-/usr/bin/docker stop neonevm
+ExecStartPre=-/usr/bin/docker rm neonevm
+ExecStartPre=/usr/bin/docker pull postgres:latest
 ExecStart=/usr/local/bin/postgres
 
 SyslogIdentifier=postgres

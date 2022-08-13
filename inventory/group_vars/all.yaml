@@ -2,7 +2,7 @@
 
 #neon_config
 neonevm_user: neon-proxy
-neonevm_version: v0.7.22
+neonevm_version: latest
 neonevm_solana_rpc: localhost
 
 neonevm_default_envs:

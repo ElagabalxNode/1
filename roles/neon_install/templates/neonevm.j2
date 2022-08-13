@@ -5,5 +5,5 @@ set -x
 docker run -d --network=host \
 --env-file {{ neonevm_config_dir }}neon.env \
 -v {{ neonevm_solana_keypair }}:/root/.config/solana/id.json \
---name neonevm1 \
+--name neonevm \
 neonlabsorg/proxy:{{ neonevm_version }}

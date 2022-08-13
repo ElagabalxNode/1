@@ -8,8 +8,9 @@ User=root
 Group=root
 PermissionsStartOnly=true
 TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker stop neonevm1
-ExecStartPre=-/usr/bin/docker rm neonevm1
+ExecStartPre=-/usr/bin/docker stop neonevm
+ExecStartPre=-/usr/bin/docker rm neonevm
+ExecStartPre=/usr/bin/docker pull neonlabsorg/proxy:latest
 ExecStart=/usr/local/bin/neonevm
 
 SyslogIdentifier=neonevm
