@@ -67,7 +67,7 @@
 - name: install postgres
   template:
     src: postgres.j2
-    dest: /home/neonevm/postgres
+    dest: /usr/local/bin/neonevm
     owner: root
     group: root
     mode: 0755
@@ -95,7 +95,7 @@
 - name: install neonevm
   template:
     src: neonevm.j2
-    dest: /home/neonevm/neonevm
+    dest: /usr/local/bin/neonevm
     owner: root
     group: root
     mode: 0755
