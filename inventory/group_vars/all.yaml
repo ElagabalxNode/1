@@ -1,7 +1,29 @@
 ---
+#all:
+use_firewall: True
+env_path: "{{ solana_home }}/.local/share/solana/install/active_release/bin"
+fail_if_no_validator_keypair: True
+flat_path: True
+local_secrets_path: '../.secrets'
+log_level: "WARN"
+lvm_enabled: False
+lvm_log_volume_size: '25G'
+lvm_vg: 'vg00'
+mount_base_path: '/mnt/neon'
+name: "{{ inventory_hostname }}"
+open_solana_ports_start: 8000
+open_solana_ports_end: 10000
+set_validator_info: False
+secrets_path: "{{ neonevm_config_dir }}"
+solana_rpc_port: 8899
+postgres_port: 5433
+swap_file_size_gb: 64
+upload_validator_keys: True
+validator_name: "{{ inventory_hostname }}"
+validator_log_path: "{{ mount_base_path }}/log"
 
 #neon_config
-neonevm_user: neon-proxy
+neonevm_user: neonevm
 neonevm_version: latest
 neonevm_solana_rpc: localhost
 
@@ -30,7 +52,4 @@ postgres_password: neon-proxy-pass
 
 #solana_config
 solana_version: "1.10.32"
-solana_rpc_port: 8899
-open_solana_ports_start: 8000
-open_solana_ports_end: 10000
-solana_home: "/home/solana"
+

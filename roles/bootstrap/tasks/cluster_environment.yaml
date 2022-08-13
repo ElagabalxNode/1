@@ -1,0 +1,9 @@
+---
+- name: set devnet cluster environment
+  shell: solana config set --url https://api.testnet.solana.com
+  become: yes
+  become_user: "{{ neonevm_user }}"
+  environment:
+    PATH: "{{ env_path }}"
+  tags:
+    validator.manage.cluster

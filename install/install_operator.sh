@@ -114,7 +114,6 @@ install_operator () {
 
 }
 
-
 while [ $# -gt 0 ]; do
 
    if [[ $1 == *"--"* ]]; then
@@ -125,9 +124,6 @@ while [ $# -gt 0 ]; do
 
   shift
 done
-
-sv_manager_version=${sv_manager_version:-latest}
-
 
 echo "This script will bootstrap a NEON operator. Proceed?"
 select yn in "Yes" "No"; do

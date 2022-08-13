@@ -11,7 +11,9 @@
   roles:
     - configure_ubuntu
     - solana_cli
+    - bootstrap
     - neon_install
+#    - monitoring
 
 
 

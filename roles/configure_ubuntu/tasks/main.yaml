@@ -4,12 +4,33 @@
   tags:
     - config.packages
 
+- name: Create swap
+  import_tasks: swap.yaml
+  tags:
+    - config.swap
+  when: swap_file_size_gb | int  > 0
+
+- name: Create ramdisk
+  import_tasks: ramdisk.yaml
+  tags:
+    - config.ramdisk
+  when: ramdisk_size_gb | int > 0
+
 - name: Config cpu governor
   import_tasks: cpu_governor.yaml
   tags:
     - config.cpu
 
-#- name: Config firewall
-#  import_tasks: firewall.yaml
-#  tags:
-#    - config.firewall
+- name: Config firewall
+  import_tasks: firewall.yaml
+  tags:
+    - config.firewall
+  when:
+    use_firewall | bool
+
+- name: Create ansible user
+  import_tasks: ansible_user.yaml
+  tags:
+    - config.ansible_user
+  when:
+    - "'local' not in group_names"
