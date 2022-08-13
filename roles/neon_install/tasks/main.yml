@@ -10,7 +10,7 @@
     system: true
     shell: "/usr/sbin/nologin"
     group: neonevm
-    home: /etc/neonevm/
+    home: /home/neonevm/
 
 - name: ensure neonevm has access to run docker
   user:
@@ -59,7 +59,7 @@
 - name: install docker env
   template:
     src: docker.env.j2
-    dest: /usr/local/bin/docker.env
+    dest: "{{ neonevm_config_dir }}"
     owner: "{{ neonevm_user }}"
     group: neonevm
     mode: 0755
@@ -67,7 +67,7 @@
 - name: install postgres
   template:
     src: postgres.j2
-    dest: /usr/local/bin/postgres
+    dest: "{{ neonevm_config_dir }}"
     owner: "{{ neonevm_user }}"
     group: neonevm
     mode: 0755
@@ -87,7 +87,7 @@
 - name: install neonevm
   template:
     src: neonevm.j2
-    dest: /usr/local/bin/neonevm
+    dest: "{{ neonevm_config_dir }}"
     owner: "{{ neonevm_user }}"
     group: neonevm
     mode: 0755
