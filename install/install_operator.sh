@@ -63,7 +63,7 @@ install_operator () {
 
   mv neon-manager-$ver* neon_manager
   rm ./neon_manager.zip
-  cd ./neon-manager || exit
+  cd ./neon_manager || exit
   
   #shellcheck disable=SC2154
   #echo "pwd: $(pwd)"
