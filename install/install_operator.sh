@@ -33,7 +33,7 @@ install_operator () {
 
   echo "Docker Uninstall old versions "
 
-  $pkg_manager remove docker docker-engine docker.io containerd runc
+#  $pkg_manager remove -y docker docker-engine docker.io containerd runc
 
   echo "Installing Docker"
 
