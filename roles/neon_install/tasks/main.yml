@@ -60,7 +60,7 @@
   template:
     src: postgres.env.j2
     dest: /etc/neonevm/postgres.env
-    owner: "{{ neonevm_user }}"
+    owner: root
     group: neonevm
     mode: 0755
 
@@ -68,7 +68,7 @@
   template:
     src: neon.env.j2
     dest: /etc/neonevm/neon.env
-    owner: "{{ neonevm_user }}"
+    owner: root
     group: neonevm
     mode: 0755    
 
