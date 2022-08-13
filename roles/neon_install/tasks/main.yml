@@ -104,18 +104,18 @@
 #  notify:
 #    - restart neonevm
 
-- name: ensure postgres service is started and enabled
-  become: true
-  systemd:
-    daemon_reload: true
-    name: neonevm
-    state: started
-    enabled: true
-
-- name: ensure neonevm service is started and enabled
-  become: true
-  systemd:
-    daemon_reload: true
-    name: neonevm
-    state: started
-    enabled: true    
+#- name: ensure postgres service is started and enabled
+#  become: true
+#  systemd:
+#    daemon_reload: true
+#    name: neonevm
+#    state: started
+#    enabled: true
+#
+#- name: ensure neonevm service is started and enabled
+#  become: true
+#  systemd:
+#    daemon_reload: true
+#    name: neonevm
+#    state: started
+#    enabled: true    
