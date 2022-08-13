@@ -43,14 +43,21 @@ install_operator () {
     gnupg \
     lsb-release
 
+  $pkg_manager install apt-transport-https ca-certificates curl software-properties-common
+
   mkdir -p /etc/apt/keyrings
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-  
+
   echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-  # Linux post-install
+  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+
+  $pkg_manager update
+  $pkg_manager install docker.io
+  
+    # Linux post-install
   groupadd docker
   usermod -aG docker $USER
   systemctl enable docker
