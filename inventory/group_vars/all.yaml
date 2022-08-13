@@ -2,7 +2,7 @@
 
 #neon_config
 neonevm_user: neon-proxy
-neonevm_version: v0.5.1
+neonevm_version: v0.7.22
 neonevm_solana_rpc: localhost
 
 neonevm_default_envs:
@@ -21,6 +21,7 @@ neonevm_chains:
 neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
 neonevm_config_dir: /home/neonevm/
 neonevm_solana_keypair: "{{ neonevm_config_dir }}neonevm-keypair.json"
+
 
 #postgres
 postgres_db: neon-db
