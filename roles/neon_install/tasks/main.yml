@@ -74,15 +74,15 @@
   notify:
     - restart postgres
 
-#- name: install cache postgres service
-#  template:
-#    src: postgres.service.j2
-#    dest: /etc/systemd/system/postgres.service
-#    owner: "{{ neonevm_user }}"
-#    group: neonevm
-#    mode: 0644
-#  notify:
-#    - restart postgres
+- name: install cache postgres service
+  template:
+    src: postgres.service.j2
+    dest: /etc/systemd/system/postgres.service
+    owner: "{{ neonevm_user }}"
+    group: neonevm
+    mode: 0644
+  notify:
+    - restart postgres
     
 - name: install neonevm
   template:
@@ -94,28 +94,28 @@
   notify:
     - restart neonevm
 
-#- name: install cache rpc service
-#  template:
-#    src: neonevm.service.j2
-#    dest: /etc/systemd/system/neonevm.service
-#    owner: "{{ neonevm_user }}"
-#    group: neonevm
-#    mode: 0644
-#  notify:
-#    - restart neonevm
+- name: install cache rpc service
+  template:
+    src: neonevm.service.j2
+    dest: /etc/systemd/system/neonevm.service
+    owner: "{{ neonevm_user }}"
+    group: neonevm
+    mode: 0644
+  notify:
+    - restart neonevm
 
-#- name: ensure postgres service is started and enabled
-#  become: true
-#  systemd:
-#    daemon_reload: true
-#    name: neonevm
-#    state: started
-#    enabled: true
-#
-#- name: ensure neonevm service is started and enabled
-#  become: true
-#  systemd:
-#    daemon_reload: true
-#    name: neonevm
-#    state: started
-#    enabled: true    
+- name: ensure postgres service is started and enabled
+  become: true
+  systemd:
+    daemon_reload: true
+    name: neonevm
+    state: started
+    enabled: true
+
+- name: ensure neonevm service is started and enabled
+  become: true
+  systemd:
+    daemon_reload: true
+    name: neonevm
+    state: started
+    enabled: true    
