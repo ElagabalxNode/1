@@ -29,7 +29,7 @@ install_operator () {
   $pkg_manager update
 
   echo "Installing ansible, curl, unzip..."
-  $pkg_manager install ansible curl unzip --yes
+  $pkg_manager install -y ansible curl unzip --yes
 
   echo "Docker Uninstall old versions "
 
@@ -37,13 +37,13 @@ install_operator () {
 
   echo "Installing Docker"
 
-  $pkg_manager install \
+  $pkg_manager install -y \
     ca-certificates \
     curl \
     gnupg \
     lsb-release
 
-  $pkg_manager install apt-transport-https ca-certificates curl software-properties-common
+  $pkg_manager install -y apt-transport-https ca-certificates curl software-properties-common
 
   echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
@@ -52,7 +52,7 @@ install_operator () {
   add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 
   $pkg_manager update
-  $pkg_manager install docker.io
+  $pkg_manager install -y docker.io
   
     # Linux post-install
   groupadd docker
