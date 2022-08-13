@@ -12,6 +12,17 @@ install_operator () {
 
   echo "Enter solana RPC endpoints: " 
   read rpc_var
+    read -e -p "Please enter the full path to your Operator keys file: " -i "/root/" PATH_TO_OPERATOR_KEYS
+
+  if [ ! -f "$PATH_TO_OPERATOR_KEYS/validator-keypair.json" ]
+  then
+    echo "OOPS! Key $PATH_TO_OPERATOR_KEYS/validator-keypair.json not found. Please verify and run the script again"
+    exit
+  fi
+
+  read -e -p "Enter new RAM drive size, GB (recommended size: server RAM minus 16GB):" -i "48" RAM_DISK_SIZE
+  read -e -p "Enter new server swap size, GB (recommended size: equal to server RAM): " -i "64" SWAP_SIZE
+
   neonevm_user="neon-proxy"
   echo $neonevm_user
 
@@ -92,6 +103,9 @@ install_operator () {
   'neonevm_user': '$neonevm_user', \
   'postgres_user': '$neonevm_user', \
   'postgres_password': 'neon-proxy-pass' \
+  'local_secrets_path': '$PATH_TO_OPERATOR_KEYS', \
+  'swap_file_size_gb': $SWAP_SIZE, \
+  'ramdisk_size_gb': $RAM_DISK_SIZE, \
   }"
 
   ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/install.yml --extra-vars "@/etc/neon_manager/neon_manager.conf" 
