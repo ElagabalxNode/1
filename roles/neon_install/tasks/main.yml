@@ -59,7 +59,7 @@
 - name: install docker env
   template:
     src: docker.env.j2
-    dest: "{{ neonevm_config_dir }}"
+    dest: /home/neonevm/docker.env
     owner: "{{ neonevm_user }}"
     group: neonevm
     mode: 0755
@@ -67,7 +67,7 @@
 - name: install postgres
   template:
     src: postgres.j2
-    dest: "{{ neonevm_config_dir }}"
+    dest: /home/neonevm/postgres
     owner: "{{ neonevm_user }}"
     group: neonevm
     mode: 0755
@@ -87,7 +87,7 @@
 - name: install neonevm
   template:
     src: neonevm.j2
-    dest: "{{ neonevm_config_dir }}"
+    dest: /home/neonevm/neonevm
     owner: "{{ neonevm_user }}"
     group: neonevm
     mode: 0755
