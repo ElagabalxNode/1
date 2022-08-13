@@ -59,7 +59,7 @@
 - name: install docker env for postgres
   template:
     src: postgres.env.j2
-    dest: /home/neonevm/postgres.env
+    dest: /etc/neonevm/postgres.env
     owner: "{{ neonevm_user }}"
     group: neonevm
     mode: 0755
@@ -67,7 +67,7 @@
 - name: install docker env for neonevm
   template:
     src: neon.env.j2
-    dest: /home/neonevm/neon.env
+    dest: /etc/neonevm/neon.env
     owner: "{{ neonevm_user }}"
     group: neonevm
     mode: 0755    
