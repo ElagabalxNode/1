@@ -31,9 +31,6 @@ install_operator () {
   echo "Installing ansible, curl, unzip..."
   $pkg_manager install ansible curl unzip --yes
 
-  ansible-galaxy collection install ansible.posix
-  ansible-galaxy collection install community.general  
-
   echo "Docker Uninstall old versions "
 
   $pkg_manager remove docker docker-engine docker.io containerd runc
