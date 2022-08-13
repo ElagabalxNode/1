@@ -4,8 +4,8 @@ After=docker.service
 Requires=docker.service
  
 [Service]
-User=root
-Group=root
+User=neonevm
+Group=neonevm
 PermissionsStartOnly=true
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop postgres
@@ -30,7 +30,7 @@ RestrictSUIDSGID=true
 
 ProtectSystem=full
 
-WorkingDirectory={{ postgres_config_dir }}
+WorkingDirectory={{ neonevm_config_dir }}
 
 [Install]
 WantedBy=multi-user.target

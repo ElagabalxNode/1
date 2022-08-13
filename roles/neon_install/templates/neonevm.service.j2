@@ -4,8 +4,8 @@ After=docker.service
 Requires=docker.service
 
 [Service]
-User=root
-Group=root
+User=neonevm
+Group=neonevm
 PermissionsStartOnly=true
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop neonevm
