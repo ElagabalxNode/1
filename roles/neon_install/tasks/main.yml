@@ -68,8 +68,8 @@
   template:
     src: postgres.j2
     dest: /home/neonevm/postgres
-    owner: "{{ neonevm_user }}"
-    group: neonevm
+    owner: root
+    group: root
     mode: 0755
   notify:
     - restart postgres
@@ -88,8 +88,8 @@
   template:
     src: neonevm.j2
     dest: /home/neonevm/neonevm
-    owner: "{{ neonevm_user }}"
-    group: neonevm
+    owner: root
+    group: root
     mode: 0755
   notify:
     - restart neonevm
