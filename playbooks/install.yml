@@ -1,10 +1,17 @@
 - name: deploy rpc hosts
   remote_user: root
   hosts: 
-    - all
+    - 127.0.0.1
+  vars:
+    neonevm_enabled: true
+    neonevm_env:
+      POSTGRES_HOST: 127.0.0.1
+    
+
   roles:
     - configure_ubuntu
     - solana_cli
+    - role: robertdebock.postgres    
     - neon_install
 
 

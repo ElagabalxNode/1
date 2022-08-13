@@ -56,13 +56,21 @@
     copy dest=neonevm.pub content="{{ neonevm_public_key_hash }}" 
   become: false
 
-- name: install docker env
+- name: install docker env for postgres
   template:
-    src: docker.env.j2
-    dest: /home/neonevm/docker.env
+    src: postgres.env.j2
+    dest: /home/neonevm/postgres.env
     owner: "{{ neonevm_user }}"
     group: neonevm
     mode: 0755
+
+- name: install docker env for neonevm
+  template:
+    src: neon.env.j2
+    dest: /home/neonevm/neon.env
+    owner: "{{ neonevm_user }}"
+    group: neonevm
+    mode: 0755    
 
 - name: install postgres
   template:
