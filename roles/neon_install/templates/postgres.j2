@@ -2,7 +2,7 @@
 
 set -x
 
-docker run --rm -d --network=host \
+docker run -d --network=host \
 --env-file "{{ neonevm_config_dir }}"docker.env \
 --name=postgres \
 postgres:14.0
