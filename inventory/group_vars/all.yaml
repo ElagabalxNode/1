@@ -6,7 +6,6 @@ fail_if_no_validator_keypair: True
 flat_path: True
 local_secrets_path: '../.secrets'
 mount_base_path: '/mnt/neon'
-name: "{{ inventory_hostname }}"
 open_solana_ports_start: 8000
 open_solana_ports_end: 10000
 set_validator_info: False
