@@ -71,6 +71,9 @@ install_operator () {
   systemctl enable docker
   systemctl start docker
 
+  ansible-galaxy collection install ansible.posix
+  ansible-galaxy collection install community.general
+
   echo "Downloading Neon operator manager"
   cmd="https://github.com/ElagabalxNode/neon-manager/archive/refs/heads/main.zip"
   ver="main"
