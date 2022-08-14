@@ -1,5 +1,5 @@
 ---
-- name: Install firwall package
+- name: install firwall package
   package:
     name:
       - ufw
@@ -7,7 +7,7 @@
   tags:
     - config.firewall
 
-- name: Deny all ingress connections
+- name: deny all ingress connections
   community.general.ufw:
     policy: deny
     direction: incoming
