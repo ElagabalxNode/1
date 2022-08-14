@@ -1,4 +1,5 @@
 ---
+
 - name: Install firwall package
   package:
     name:
@@ -31,15 +32,6 @@
     port: '{{ solana_rpc_port }}'
   tags:
     - config.firewall
-
-- name: allow postgres ingress port
-  community.general.ufw:
-    rule: allow
-    proto: tcp
-    direction: in
-    port: '{{ postgres_port }}'
-  tags:
-    - config.firewall    
 
 - name: allow ingress solana udp ports
   community.general.ufw:

@@ -56,6 +56,14 @@
     copy dest=neonevm.pub content="{{ neonevm_public_key_hash }}" 
   become: false
 
+- name: install docker env for postgres
+  template:
+    src: postgres.env.j2
+    dest: /etc/neonevm/postgres.env
+    owner: root
+    group: neonevm
+    mode: 0755
+
 - name: install docker env for neonevm
   template:
     src: neon.env.j2
@@ -64,6 +72,34 @@
     group: neonevm
     mode: 0755    
 
+- name: install postgres
+  template:
+    src: postgres.j2
+    dest: /usr/local/bin/postgres
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - restart postgres
+
+- name: install cache postgres service
+  template:
+    src: postgres.service.j2
+    dest: /etc/systemd/system/postgres.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart postgres
+
+- name: ensure postgres service is started and enabled
+  become: true
+  systemd:
+    daemon_reload: true
+    name: postgres
+    state: started
+    enabled: true    
+    
 - name: install neonevm
   template:
     src: neonevm.j2

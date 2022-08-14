@@ -12,17 +12,6 @@ install_operator () {
 
   echo "Enter solana RPC endpoints: " 
   read rpc_var
-    read -e -p "Please enter the full path to your Operator keys file: " -i "/root" PATH_TO_OPERATOR_KEYS
-
-  if [ ! -f "$PATH_TO_OPERATOR_KEYS/neonevm-keypair.json" ]
-  then
-    echo "OOPS! Key $PATH_TO_OPERATOR_KEYS/neonevm-keypair.json not found. Please verify and run the script again"
-    exit
-  fi
-
-  read -e -p "Enter new RAM drive size, GB (recommended size: server RAM minus 16GB):" -i "48" RAM_DISK_SIZE
-  read -e -p "Enter new server swap size, GB (recommended size: equal to server RAM): " -i "64" SWAP_SIZE
-
   neonevm_user="neon-proxy"
   echo $neonevm_user
 
@@ -41,9 +30,6 @@ install_operator () {
 
   echo "Installing ansible, curl, unzip..."
   $pkg_manager install -y ansible curl unzip --yes
-
-  ansible-galaxy collection install ansible.posix
-  ansible-galaxy collection install community.general
 
   echo "Docker Uninstall old versions "
 
@@ -74,7 +60,7 @@ install_operator () {
   systemctl enable docker
   systemctl start docker
 
-    echo "Downloading Neon operator manager"
+  echo "Downloading Neon operator manager"
   cmd="https://github.com/ElagabalxNode/neon-manager/archive/refs/heads/main.zip"
   ver="main"
   echo "starting $cmd"
@@ -100,18 +86,12 @@ install_operator () {
     echo "create new config"
   fi
 
-  ansible-galaxy install --role-file requirements.yml
-  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/prepare.yml
-
   ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/pb_config.yaml --extra-vars "{ \
   'neonevm_solana_rpc': '$rpc_var', \
   'postgres_db': 'neon-db', \
   'neonevm_user': '$neonevm_user', \
   'postgres_user': '$neonevm_user', \
-  'postgres_password': 'neon-proxy-pass', \
-  'local_secrets_path': '$PATH_TO_OPERATOR_KEYS', \
-  'swap_file_size_gb': '$SWAP_SIZE', \
-  'ramdisk_size_gb': '$RAM_DISK_SIZE', \
+  'postgres_password': 'neon-proxy-pass' \
   }"
 
   ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/install.yml --extra-vars "@/etc/neon_manager/neon_manager.conf" 
@@ -119,6 +99,7 @@ install_operator () {
   echo "See your logs by: docker logs neonevm "
 
 }
+
 
 while [ $# -gt 0 ]; do
 
@@ -130,6 +111,9 @@ while [ $# -gt 0 ]; do
 
   shift
 done
+
+sv_manager_version=${sv_manager_version:-latest}
+
 
 echo "This script will bootstrap a NEON operator. Proceed?"
 select yn in "Yes" "No"; do
