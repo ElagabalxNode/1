@@ -86,7 +86,15 @@ install_operator () {
     echo "create new config"
   fi
 
-  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/pb_config.yaml --extra-vars "{ \
+#  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/pb_config.yaml --extra-vars "{ \
+#  'neonevm_solana_rpc': '$rpc_var', \
+#  'postgres_db': 'neon-db', \
+#  'neonevm_user': '$neonevm_user', \
+#  'postgres_user': '$neonevm_user', \
+#  'postgres_password': 'neon-proxy-pass' \
+#  }"
+
+  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/install.yml --extra-vars "{ \
   'neonevm_solana_rpc': '$rpc_var', \
   'postgres_db': 'neon-db', \
   'neonevm_user': '$neonevm_user', \
@@ -94,7 +102,7 @@ install_operator () {
   'postgres_password': 'neon-proxy-pass' \
   }"
 
-  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/install.yml --extra-vars "@/etc/neon_manager/neon_manager.conf" 
+#  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/install.yml --extra-vars "@/etc/neon_manager/neon_manager.conf" 
 
   echo "See your logs by: docker logs neonevm "
 
