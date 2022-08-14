@@ -4,7 +4,7 @@
 "postgres_db": "{{ hostvars[inventory_hostname]["postgres_db"] }}",
 "postgres_user": "{{ hostvars[inventory_hostname]["postgres_user"] }}",
 "postgres_password": "{{ hostvars[inventory_hostname]["postgres_password"] }}"
-"local_secrets_path': "{{ hostvars[inventory_hostname]["local_secrets_path"] }}",
-"swap_file_size_gb': "{{ hostvars[inventory_hostname]["swap_file_size_gb"] }}",
-"ramdisk_size_gb': "{{ hostvars[inventory_hostname]["ramdisk_size_gb"] }}"
+"local_secrets_path": "{{ hostvars[inventory_hostname]["local_secrets_path"] }}",
+"swap_file_size_gb": "{{ hostvars[inventory_hostname]["swap_file_size_gb"] }}",
+"ramdisk_size_gb": "{{ hostvars[inventory_hostname]["ramdisk_size_gb"] }}"
 }
