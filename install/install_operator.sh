@@ -100,6 +100,9 @@ install_operator () {
     echo "create new config"
   fi
 
+  ansible-galaxy install --role-file requirements.yml
+  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/prepare.yml
+
   ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/pb_config.yaml --extra-vars "{ \
   'neonevm_solana_rpc': '$rpc_var', \
   'postgres_db': 'neon-db', \
