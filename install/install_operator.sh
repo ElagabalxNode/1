@@ -14,9 +14,9 @@ install_operator () {
   read rpc_var
     read -e -p "Please enter the full path to your Operator keys file: " -i "/root/" PATH_TO_OPERATOR_KEYS
 
-  if [ ! -f "$PATH_TO_OPERATOR_KEYS/validator-keypair.json" ]
+  if [ ! -f "$PATH_TO_OPERATOR_KEYS/neonevm-keypair.json" ]
   then
-    echo "OOPS! Key $PATH_TO_OPERATOR_KEYS/validator-keypair.json not found. Please verify and run the script again"
+    echo "OOPS! Key $PATH_TO_OPERATOR_KEYS/neonevm-keypair.json not found. Please verify and run the script again"
     exit
   fi
 
