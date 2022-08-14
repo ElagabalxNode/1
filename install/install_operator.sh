@@ -12,7 +12,7 @@ install_operator () {
 
   echo "Enter solana RPC endpoints: " 
   read rpc_var
-    read -e -p "Please enter the full path to your Operator keys file: " -i "/root/" PATH_TO_OPERATOR_KEYS
+    read -e -p "Please enter the full path to your Operator keys file: " -i "/root" PATH_TO_OPERATOR_KEYS
 
   if [ ! -f "$PATH_TO_OPERATOR_KEYS/neonevm-keypair.json" ]
   then
