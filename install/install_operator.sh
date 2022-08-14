@@ -104,8 +104,8 @@ install_operator () {
   'postgres_user': '$neonevm_user', \
   'postgres_password': 'neon-proxy-pass' \
   'local_secrets_path': '$PATH_TO_OPERATOR_KEYS', \
-  'swap_file_size_gb': $SWAP_SIZE, \
-  'ramdisk_size_gb': $RAM_DISK_SIZE, \
+  'swap_file_size_gb': '$SWAP_SIZE', \
+  'ramdisk_size_gb': '$RAM_DISK_SIZE', \
   }"
 
   ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/install.yml --extra-vars "@/etc/neon_manager/neon_manager.conf" 
