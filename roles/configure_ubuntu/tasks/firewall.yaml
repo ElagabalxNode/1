@@ -1,5 +1,4 @@
 ---
-
 - name: Install firwall package
   package:
     name:
