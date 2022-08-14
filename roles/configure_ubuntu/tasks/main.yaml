@@ -16,12 +16,12 @@
   tags:
     - config.cpu
 
-- name: Config firewall
-  import_tasks: firewall.yaml
-  tags:
-    - config.firewall
-  when:
-    use_firewall | bool
+#- name: Config firewall
+#  import_tasks: firewall.yaml
+#  tags:
+#    - config.firewall
+#  when:
+#    use_firewall | bool
 
 - name: Create ansible user
   import_tasks: ansible_user.yaml
