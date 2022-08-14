@@ -102,7 +102,7 @@ install_operator () {
   'postgres_db': 'neon-db', \
   'neonevm_user': '$neonevm_user', \
   'postgres_user': '$neonevm_user', \
-  'postgres_password': 'neon-proxy-pass' \
+  'postgres_password': 'neon-proxy-pass', \
   'local_secrets_path': '$PATH_TO_OPERATOR_KEYS', \
   'swap_file_size_gb': '$SWAP_SIZE', \
   'ramdisk_size_gb': '$RAM_DISK_SIZE', \
