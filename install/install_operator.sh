@@ -31,8 +31,8 @@ install_operator () {
     echo "\e[1m\e[32mDelete Ansible after install?\e[0m"
   select dl in "Yes" "No"; do
     case $dl in
-        Yes ) delete_a=yes;;  
-        No ) delete_a=no;;
+        Yes ) deletea=yes;;  
+        No ) deletea=no;;
     esac
   done
 
@@ -76,7 +76,7 @@ install_operator () {
 
   echo -e "\e[1m\e[32m### 'Uninstall ansible ###\e[0m"
 
-  if [[ $delete_a=yes]]
+  if [[ $deletea="yes"]]
   then
   $pkg_manager remove ansible --yes
   fi
