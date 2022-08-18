@@ -74,9 +74,9 @@ install_operator () {
   'postgres_password': 'neon-proxy-pass' \
   }"
 
-  echo -e "\e[1m\e[32m### 'Uninstall ansible ###\e[0m"
+  echo -e "\e[1m\e[32mUninstall ansible\e[0m"
 
-  if [[ $deletea="yes"]]
+  if [[ $deletea="yes" ]];
   then
   $pkg_manager remove ansible --yes
   fi
