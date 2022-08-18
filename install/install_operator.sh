@@ -50,6 +50,9 @@ install_operator () {
   echo -e "\e[1m\e[32mInstalling ansible, curl, unzip...\e[0m"
   $pkg_manager install -y ansible curl unzip --yes
 
+  ansible-galaxy collection install ansible.posix
+  ansible-galaxy collection install community.general
+
   echo -e "\e[1m\e[32mDownloading Neon operator manager\e[0m"
   cmd="https://github.com/ElagabalxNode/neon-manager/archive/refs/heads/main.zip"
   ver="main"
