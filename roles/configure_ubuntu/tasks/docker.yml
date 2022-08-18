@@ -3,7 +3,7 @@
 - name: Install Docker
   block:
     - name: Init universe
-      apt_ropository:
+      apt_repository:
         repo: "deb http://us.archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }} universe"
         state: present
 
@@ -24,7 +24,7 @@
         state: present
 
     - name: Install stable repo
-      apt_ropository:
+      apt_repository:
         repo: >
           deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] 
           https://download.docker.com/linux/ubuntu
