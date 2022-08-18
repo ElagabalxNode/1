@@ -79,7 +79,7 @@ install_operator () {
   if [[ $deletea="yes" ]];
   then
   $pkg_manager remove ansible --yes
-  fi [[ $deletea="no" ]];
+  fi
   break
   
 }
