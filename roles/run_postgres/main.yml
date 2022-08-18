@@ -1,0 +1,38 @@
+---
+
+- name: "Create app database"
+  postgresql_db:
+    state: present
+    name: "{{ postgres_db }}"
+  become: yes
+  become_user: {{ neonevm_user }}
+
+- name: "Create db user"
+  postgresql_user:
+    state: present
+    name: "{{ neonevm_user }}"
+    password: "{{ postgres_password }}"
+  become: yes
+  become_user: {{ neonevm_user }}
+
+- name: "Grant db user access to app db"
+  postgresql_privs:
+    type: database
+    database: "{{ postgres_db }}"
+    roles: "{{ neonevm_user }}"
+    grant_option: no
+    privs: all
+  become: yes
+  become_user: {{ neonevm_user }}
+
+- name: "Allow md5 connection for the db user"
+  postgresql_pg_hba:
+    dest: "~/data/pg_hba.conf"
+    contype: host
+    databases: all
+    method: md5
+    users: "{{ neonevm_user }}"
+    create: true
+  become: yes
+  become_user: {{ neonevm_user }}
+  notify: restart postgres

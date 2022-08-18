@@ -2,16 +2,14 @@
   remote_user: root
   hosts: 
     - 127.0.0.1
-  vars:
-    neonevm_enabled: true
-    neonevm_env:
-      POSTGRES_HOST: 127.0.0.1
-    
-
+ 
   roles:
     - configure_ubuntu
+    - docker
     - solana_cli
-    - neon_install
+    - set_keys
+    - run_postgres
+    - run_proxy
 
 
 

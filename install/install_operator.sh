@@ -10,12 +10,31 @@ echo "|||__________________________________________________|||"
 
 install_operator () {
 
-  echo "Enter solana RPC endpoints: " 
-  read rpc_var
-  neonevm_user="neon-proxy"
-  echo $neonevm_user
-
-  rm -rf sv_manager/
+  echo -e "\e[1m\e[32mYour Solana RPC instant is localhost\e[0m?"
+  select yrpc in "Yes" "No"; do
+      case $yrpc in
+          Yes ) rpc_var=localhost;;  
+          No ) echo -e "\e[1m\e[Enter solana RPC endpoints:\e[0m" 
+          read rpc_var;;
+      esac
+  done
+  
+  echo -e "\e[1m\e[32mEnter name of your operator:\e[0m"
+  read neonevm_user
+  echo Your operator name is $neonevm_user
+  echo -e "\e[1m\e[32mTo install the operator, a Postgres database is required - enter the name of the database:\e[0m"
+  read postgres_db
+  echo Postgres Data Base name $postgres_db
+  echo -e "\e[1m\e[32mEnter the password for the database:\e[0m"
+  read -s postgres_password
+  
+    echo "\e[1m\e[32mDelete Ansible after install?\e[0m"
+  select dl in "Yes" "No"; do
+    case $dl in
+        Yes ) delete_a=yes;;  
+        No ) delete_a=no;;
+    esac
+  done
 
   if [[ $(which apt | wc -l) -gt 0 ]]
   then
@@ -25,42 +44,13 @@ install_operator () {
   pkg_manager=yum
   fi
 
-  echo "Updating packages..."
+  echo -e "\e[1m\e[32mUpdating packages...\e[0m"
   $pkg_manager update
 
-  echo "Installing ansible, curl, unzip..."
+  echo -e "\e[1m\e[32mInstalling ansible, curl, unzip...\e[0m"
   $pkg_manager install -y ansible curl unzip --yes
 
-  echo "Docker Uninstall old versions "
-
-#  $pkg_manager remove -y docker docker-engine docker.io containerd runc
-
-  echo "Installing Docker"
-
-  $pkg_manager install -y \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
-
-  $pkg_manager install -y apt-transport-https ca-certificates curl software-properties-common
-
-  echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-
-  $pkg_manager update
-  $pkg_manager install -y docker.io
-  
-    # Linux post-install
-  groupadd docker
-  usermod -aG docker $USER
-  systemctl enable docker
-  systemctl start docker
-
-  echo "Downloading Neon operator manager"
+  echo -e "\e[1m\e[32mDownloading Neon operator manager\e[0m"
   cmd="https://github.com/ElagabalxNode/neon-manager/archive/refs/heads/main.zip"
   ver="main"
   echo "starting $cmd"
@@ -76,36 +66,21 @@ install_operator () {
   #echo "pwd: $(pwd)"
   #ls -lah ./
 
-  file=/etc/neon_manager/neon_manager.conf
-  if [ -f "$file" ]; then
-    echo "$file exists."
-    rm -rf /etc/neon_manager/neon_manager.conf
-    echo "rewrite config"
-  else 
-    echo "$file does not exist."
-    echo "create new config"
-  fi
-
-#  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/pb_config.yaml --extra-vars "{ \
-#  'neonevm_solana_rpc': '$rpc_var', \
-#  'postgres_db': 'neon-db', \
-#  'neonevm_user': '$neonevm_user', \
-#  'postgres_user': '$neonevm_user', \
-#  'postgres_password': 'neon-proxy-pass' \
-#  }"
-
-  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/install.yml --extra-vars "{ \
+  echo -e "\e[1m\e[32mInstall NeonEVM Operator\e[0m"
+  ansible-playbook --connection=local --i ./inventory/all.yaml --limit local playbooks/install.yml --extra-vars "{ \
   'neonevm_solana_rpc': '$rpc_var', \
   'postgres_db': 'neon-db', \
   'neonevm_user': '$neonevm_user', \
-  'postgres_user': '$neonevm_user', \
   'postgres_password': 'neon-proxy-pass' \
   }"
 
-#  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/install.yml --extra-vars "@/etc/neon_manager/neon_manager.conf" 
+  echo -e "\e[1m\e[32m### 'Uninstall ansible ###\e[0m"
 
-  echo "See your logs by: docker logs neonevm "
-
+  if [[ $delete_a=yes]]
+  then
+  $pkg_manager remove ansible --yes
+  fi
+  
 }
 
 
@@ -120,13 +95,10 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-sv_manager_version=${sv_manager_version:-latest}
-
-
-echo "This script will bootstrap a NEON operator. Proceed?"
+echo -e "\e[1m\e[32mThis script will bootstrap a NEON operator. Proceed?\e[0m"
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) install_operator break;;  
-        No ) echo "Aborting install. No changes will be made."; exit;;
+        No ) echo "\e[1m\e[32mAborting install. No changes will be made."; exit;;
     esac
 done
