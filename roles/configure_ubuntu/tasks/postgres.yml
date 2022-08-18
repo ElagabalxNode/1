@@ -10,7 +10,7 @@
             state: present
 
         - name: Install stable repo
-          apt_ropository:
+          apt_repository:
             repo: >
               "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main"
             state: present
