@@ -5,7 +5,6 @@
  
   roles:
     - configure_ubuntu
-    - docker
     - solana_cli
     - set_keys
     - run_postgres

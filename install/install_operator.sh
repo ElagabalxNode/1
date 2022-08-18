@@ -67,7 +67,7 @@ install_operator () {
   #ls -lah ./
 
   echo -e "\e[1m\e[32mInstall NeonEVM Operator\e[0m"
-  ansible-playbook --connection=local --i ./inventory/devnet.yml --limit local playbooks/install.yml --extra-vars "{ \
+  ansible-playbook --connection=local --inventory ./inventory/devnet.yml --limit local playbooks/install.yml --extra-vars "{ \
   'neonevm_solana_rpc': '$rpc_var', \
   'postgres_db': 'neon-db', \
   'neonevm_user': '$neonevm_user', \
