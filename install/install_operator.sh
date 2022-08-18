@@ -13,9 +13,9 @@ install_operator () {
   echo -e "\e[1m\e[32mYour Solana RPC instant is localhost\e[0m?"
   select yrpc in "Yes" "No"; do
       case $yrpc in
-          Yes ) rpc_var=localhost;;  
-          No ) echo -e "\e[1m\e[Enter solana RPC endpoints:\e[0m" 
-          read rpc_var;;
+          Yes ) rpc_var=localhost; echo $rpc_var; break;;  
+          No ) echo -e "\e[1m\e[32mEnter solana RPC endpoints:\e[0m" 
+          read rpc_var; echo -e $rpc_var;  break;;
       esac
   done
   
@@ -28,11 +28,11 @@ install_operator () {
   echo -e "\e[1m\e[32mEnter the password for the database:\e[0m"
   read -s postgres_password
   
-    echo "\e[1m\e[32mDelete Ansible after install?\e[0m"
+    echo -e "\e[1m\e[32mDelete Ansible after install?\e[0m"
   select dl in "Yes" "No"; do
     case $dl in
-        Yes ) delete_a=yes;;  
-        No ) delete_a=no;;
+        Yes ) deletea=yes break;;  
+        No ) deletea=no break;;
     esac
   done
 
@@ -74,9 +74,9 @@ install_operator () {
   'postgres_password': 'neon-proxy-pass' \
   }"
 
-  echo -e "\e[1m\e[32m### 'Uninstall ansible ###\e[0m"
+  echo -e "\e[1m\e[32mUninstall ansible\e[0m"
 
-  if [[ $delete_a=yes]]
+  if [[ $deletea="yes" ]];
   then
   $pkg_manager remove ansible --yes
   fi
