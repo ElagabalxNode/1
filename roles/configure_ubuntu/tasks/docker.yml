@@ -1,82 +1,81 @@
 ---
-- name: Preconfig
-  tasks:
-    - name: Install Docker
-      block:
-        - name: Init universe
-          apt_ropository:
-            repo: "deb http://us.archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }} universe"
-            state: present
 
-        - name: Add packages
-          apt:
-            name:
-              - ca-certificates
-              - curl
-              - gnupg
-              - lsb-release
-              - python3-pip
-            update-cache: yes
-            cache_valid_time: 86400
+- name: Install Docker
+  block:
+    - name: Init universe
+      apt_ropository:
+        repo: "deb http://us.archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }} universe"
+        state: present
 
-        - name: Add key in Docker
-          apt_key:
-            url: "https://download.docker.com/linux/ubuntu/gpg"
-            state: present
+    - name: Add packages
+      apt:
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - python3-pip
+        update-cache: yes
+        cache_valid_time: 86400
 
-        - name: Install stable repo
-          apt_ropository:
-            repo: >
-              deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] 
-              https://download.docker.com/linux/ubuntu
-              (lsb_release -cs) {{ ansible_distribution_release }}
-            state: present
-            update-cache: yes
-            filename: docker
+    - name: Add key in Docker
+      apt_key:
+        url: "https://download.docker.com/linux/ubuntu/gpg"
+        state: present
 
-        - name: Install docker-ce
-          apt:
-            name: docker-ce
-            update-cache: yes
+    - name: Install stable repo
+      apt_ropository:
+        repo: >
+          deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] 
+          https://download.docker.com/linux/ubuntu
+          (lsb_release -cs) {{ ansible_distribution_release }}
+        state: present
+        update-cache: yes
+        filename: docker
 
-        - name: Check Docker instaled
-          service:
-            name: docker
-            state: restarted
-            enabled: yes
-      become: yes
+    - name: Install docker-ce
+      apt:
+        name: docker-ce
+        update-cache: yes
 
-    - name: Install Docker-compose
-      block:
-        - name: Get latest version Docker-compose
-          uri:
-            url: "https://api.github.com/repos/docker/compose/releases/latest"
-            body_format: json
-            state: present
-          register: page
+    - name: Check Docker instaled
+      service:
+        name: docker
+        state: restarted
+        enabled: yes
+  become: yes
 
-        - name: Install version of Docker-compose
-          get_url:
-            url: "https://github.com/docker/compose/releases/download/{{ page.json.tag_name }}/docker-compose-Linux-x86_64"
-            dest: root/.docker/cli-plugins/docker-compose
-            mode: 0755
-      become: yes
+- name: Install Docker-compose
+  block:
+    - name: Get latest version Docker-compose
+      uri:
+        url: "https://api.github.com/repos/docker/compose/releases/latest"
+        body_format: json
+        state: present
+      register: page
 
-    - name: Set python packages
-      block:
-        - name: Установка pip пакетов
-          pip:
-            name: docker
-          register: page
+    - name: Install version of Docker-compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/{{ page.json.tag_name }}/docker-compose-Linux-x86_64"
+        dest: root/.docker/cli-plugins/docker-compose
+        mode: 0755
+  become: yes
 
-    - name: Continue install
-      block:
-        - name: Добавление пользователя в группу Docker
-          user:
-            name: "{{ ansible_user }}"
-            group: docker
-            append: yes
+- name: Set python packages
+  block:
+    - name: Установка pip пакетов
+      pip:
+        name: docker
+      register: page
 
-        - name: Reboot
-          reboot:
-      become: yes
+- name: Continue install
+  block:
+    - name: Добавление пользователя в группу Docker
+      user:
+        name: "{{ ansible_user }}"
+        group: docker
+        append: yes
+
+    - name: Reboot
+      reboot:
+  become: yes
