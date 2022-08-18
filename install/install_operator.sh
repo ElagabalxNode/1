@@ -13,9 +13,9 @@ install_operator () {
   echo -e "\e[1m\e[32mYour Solana RPC instant is localhost\e[0m?"
   select yrpc in "Yes" "No"; do
       case $yrpc in
-          Yes ) rpc_var=localhost;;  
-          No ) echo -e "\e[1m\e[Enter solana RPC endpoints:\e[0m" 
-          read rpc_var;;
+          Yes ) rpc_var=localhost break;;  
+          No ) echo -e "\e[1m\e[32mEnter solana RPC endpoints:\e[0m" 
+          read rpc_var break;;
       esac
   done
   
