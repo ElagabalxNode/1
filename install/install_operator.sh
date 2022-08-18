@@ -50,7 +50,43 @@ install_operator () {
   echo -e "\e[1m\e[32mInstalling ansible, curl, unzip...\e[0m"
   $pkg_manager install -y ansible curl unzip --yes
 
+<<<<<<< HEAD
+  ansible-galaxy collection install ansible.posix
+  ansible-galaxy collection install community.general
+
+  echo "Docker Uninstall old versions "
+
+#  $pkg_manager remove -y docker docker-engine docker.io containerd runc
+
+  echo "Installing Docker"
+
+  $pkg_manager install -y \
+    apt-transport-https \
+    ca-certificates \
+    software-properties-common \
+    curl \
+    gnupg \
+    lsb-release
+
+  echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+
+  $pkg_manager update
+  $pkg_manager install -y docker.io
+  
+    # Linux post-install
+  groupadd docker
+  usermod -aG docker $USER
+  systemctl enable docker
+  systemctl start docker
+
+  echo "Downloading Neon operator manager"
+=======
   echo -e "\e[1m\e[32mDownloading Neon operator manager\e[0m"
+>>>>>>> 07cefe8a632253f4888ed66c037956e1679baabc
   cmd="https://github.com/ElagabalxNode/neon-manager/archive/refs/heads/main.zip"
   ver="main"
   echo "starting $cmd"
@@ -66,8 +102,32 @@ install_operator () {
   #echo "pwd: $(pwd)"
   #ls -lah ./
 
+<<<<<<< HEAD
+  file=/etc/neon_manager/neon_manager.conf
+  if [ -f "$file" ]; then
+    echo "$file exists."
+    rm -rf /etc/neon_manager/neon_manager.conf
+    echo "rewrite config"
+  else 
+    echo "$file does not exist."
+    echo "create new config"
+  fi
+
+#  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/pb_config.yaml --extra-vars "{ \
+#  'neonevm_solana_rpc': '$rpc_var', \
+#  'postgres_db': 'neon-db', \
+#  'neonevm_user': '$neonevm_user', \
+#  'postgres_user': '$neonevm_user', \
+#  'postgres_password': 'neon-proxy-pass' \
+#  }"
+
+#https://api.devnet.rpcpool.com/2bf91f35-4ee9-4b22-9b76-cbb725b5a110
+
+  ansible-playbook --connection=local --inventory ./inventory/devnet.yaml --limit local playbooks/install.yml --extra-vars "{ \
+=======
   echo -e "\e[1m\e[32mInstall NeonEVM Operator\e[0m"
   ansible-playbook --connection=local --i ./inventory/all.yaml --limit local playbooks/install.yml --extra-vars "{ \
+>>>>>>> 07cefe8a632253f4888ed66c037956e1679baabc
   'neonevm_solana_rpc': '$rpc_var', \
   'postgres_db': 'neon-db', \
   'neonevm_user': '$neonevm_user', \
