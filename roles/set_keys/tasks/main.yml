@@ -6,7 +6,7 @@
 
 - name: create neonevm system user
   user:
-    name: {{ neonevm_user }}
+    name: "{{ neonevm_user }}"
     system: true
     shell: "/usr/sbin/nologin"
     group: neonevm
@@ -14,7 +14,7 @@
 
 - name: ensure neonevm has access to run docker
   user:
-    name: {{ neonevm_user }}
+    name: "{{ neonevm_user }}"
     groups: docker
     append: yes
 
@@ -37,7 +37,7 @@
 - name: ensure permissions on neonevm keypair
   file:
     path: "{{ neonevm_solana_keypair }}"
-    owner: {{ neonevm_user }}
+    owner: "{{ neonevm_user }}"
     group: neonevm
     mode: 0600
 
@@ -55,9 +55,5 @@
   local_action: |
     copy dest=neonevm.pub content="{{ neonevm_public_key_hash }}" 
   become: false
-
-- name: get drop
-  command: /root/.local/share/solana/install/releases/"{{ solana_version }}"/solana-release/bin/solana airdrop 10 "{{ neonevm_solana_keypair }}" --url https://api.devnet.solana.com "
-  register: airdrop
 
 

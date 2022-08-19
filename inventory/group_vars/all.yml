@@ -19,7 +19,7 @@ neonevm_solana_keypair: "{{ neonevm_config_dir }}neonevm-keypair.json"
 
 #postgres
 postgres_db: neon-db
-postgres_user: {{ neonevm_user }}
+postgres_user: "{{ neonevm_user }}"
 postgres_password: neon-proxy-pass
 
 #solana_config

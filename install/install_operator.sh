@@ -50,6 +50,8 @@ install_operator () {
   echo -e "\e[1m\e[32mInstalling ansible, curl, unzip...\e[0m"
   $pkg_manager install -y ansible curl unzip --yes
 
+  sleep 5
+
   ansible-galaxy collection install ansible.posix
   ansible-galaxy collection install community.general
 
