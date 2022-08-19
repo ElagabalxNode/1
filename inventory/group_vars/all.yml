@@ -1,7 +1,7 @@
 #neon_config
-neonevm_user: neon-proxy
-neonevm_version: latest
-neonevm_solana_rpc: localhost
+neonevm_user: "neon-proxy"
+neonevm_version: "latest"
+neonevm_solana_rpc: "localhost"
 
 neonevm_default_envs:
   devnet:
@@ -18,12 +18,12 @@ neonevm_config_dir: /etc/neonevm/
 neonevm_solana_keypair: "{{ neonevm_config_dir }}neonevm-keypair.json"
 
 #postgres
-postgres_db: neon-db
+postgres_db: "neon-db"
 postgres_user: "{{ neonevm_user }}"
 postgres_password: neon-proxy-pass
 
 #solana_config
-solana_version: latest
+solana_version: "stable"
 solana_rpc_port: 8899
 open_solana_ports_start: 8000
 open_solana_ports_end: 10000

@@ -3,37 +3,28 @@
   tasks:
     - name: Install Postgres
       block:
+        - name: "Install packages"
+          dnf: "name={{ item }} state=present"
+          with_items:
+            - postgresql
+            - postgresql-server
 
-        - name: Add key in Postgres
-          apt_key:
-            url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
-            state: present
+        - name: "Install Python packages"
+          pip: "name={{ item }}  state=present"
+          with_items:
+            - psycopg2-binary
 
-        - name: Install stable repo
-          apt_repository:
-            repo: >
-              "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main"
-            state: present
-            update-cache: yes
-            filename: postgres
+        - name: "Find out if PostgreSQL is initialized"
+          ansible.builtin.stat:
+            path: "/var/lib/pgsql/data/pg_hba.conf"
+          register: postgres_data
 
-        - name: Install postgres
-          apt:
-            name: postgresql
-            update-cache: yes
-
-        - name: Check Postgres instaled
-          service:
-            name: postgresql
-            state: restarted
-            enabled: yes
-      become: yes
-
-    - name: Continue install
-      block:
-        - name: Добавление пользователя в группу Postgres
-          user:
-            name: "{{ ansible_user }}"
-            group: postgres
-            append: yes
-
+        - name: "Initialize PostgreSQL"
+          shell: "postgresql-setup initdb"
+          when: not postgres_data.stat.exists
+    
+        - name: "Start and enable services"
+          service: "name={{ item }} state=started enabled=yes"
+          with_items:
+            - postgresql
+      become: yes      

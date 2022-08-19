@@ -9,6 +9,11 @@
   tags:
     - docker.packages  
 
+- name: Install PostgresSQL packages
+  import_tasks: postgres.yml
+  tags:
+    - postgres.packages  
+
 - name: Config cpu governor
   import_tasks: cpu_governor.yaml
   tags:

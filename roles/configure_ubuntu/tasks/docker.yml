@@ -22,22 +22,17 @@
       apt_key:
         url: "https://download.docker.com/linux/ubuntu/gpg"
         state: present
+      register: "add_repository_key"  
 
     - name: Install stable repo
       apt_repository:
-        repo: >
-          deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] 
-          https://download.docker.com/linux/ubuntu
-          (lsb_release -cs) {{ ansible_distribution_release }}
+        repo: "{{ docker_apt_repository }}"
         state: present
-        update-cache: yes
         filename: docker
-        debug: 
-          msg: 
 
     - name: Install docker-ce
       apt:
-        name: docker-ce
+        name: "docker-ce"
         update-cache: yes
 
     - name: Check Docker instaled
@@ -47,7 +42,6 @@
         enabled: yes
   become: yes
   
-
 - name: Install Docker-compose
   block:
     - name: Get latest version Docker-compose
@@ -66,19 +60,16 @@
 
 - name: Set python packages
   block:
-    - name: Установка pip пакетов
+    - name: Install pip packages
       pip:
         name: docker
       register: page
 
 - name: Continue install
   block:
-    - name: Добавление пользователя в группу Docker
+    - name: Add in Docker group
       user:
         name: "{{ ansible_user }}"
         group: docker
         append: yes
 
-    - name: Reboot
-      reboot:
-  become: yes
