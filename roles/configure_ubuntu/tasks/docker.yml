@@ -32,6 +32,8 @@
         state: present
         update-cache: yes
         filename: docker
+        debug: 
+          msg: 
 
     - name: Install docker-ce
       apt:
@@ -44,8 +46,7 @@
         state: restarted
         enabled: yes
   become: yes
-  debug: 
-    msg: 
+  
 
 - name: Install Docker-compose
   block:
