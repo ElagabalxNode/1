@@ -2,15 +2,19 @@
 - name: Install Postgres
   block:
     - name: "Install packages"
-      dnf: "name={{ item }} state=present"
-      with_items:
-        - postgresql
-        - postgresql-server
+      dnf: 
+        name: postgresql-server 
+        state: present
+
+    - name: "Install packages"
+      dnf: 
+        name: postgresql 
+        state: present
 
     - name: "Install Python packages"
-      pip: "name={{ item }}  state=present"
-      with_items:
-        - psycopg2-binary
+      pip: 
+        name: psycopg2-binary
+        state: present
 
     - name: "Find out if PostgreSQL is initialized"
       ansible.builtin.stat:
@@ -22,7 +26,8 @@
       when: not postgres_data.stat.exists
 
     - name: "Start and enable services"
-      service: "name={{ item }} state=started enabled=yes"
-      with_items:
-        - postgresql
+      service: 
+        name: postgresql
+        state: started 
+        enabled: yes
   become: yes      
