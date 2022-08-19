@@ -44,6 +44,8 @@
         state: restarted
         enabled: yes
   become: yes
+  debug: 
+    msg: 
 
 - name: Install Docker-compose
   block:
