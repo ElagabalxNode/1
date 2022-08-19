@@ -20,5 +20,8 @@
       - python3
       - python3-pip
       - ufw
+      - wget
+      - python3-psycopg2
+      - acl
   tags:
     - config.packages
