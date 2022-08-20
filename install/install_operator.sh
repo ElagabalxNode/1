@@ -13,20 +13,20 @@ install_operator () {
   echo -e "\e[1m\e[32mYour Solana RPC instant is localhost\e[0m?"
   select yrpc in "Yes" "No"; do
       case $yrpc in
-          Yes ) rpc_var=localhost; echo $rpc_var; break;;  
+          Yes ) RPC_VAR="localhost"; echo $RPC_VAR; break;;  
           No ) echo -e "\e[1m\e[32mEnter solana RPC endpoints:\e[0m" 
-          read rpc_var; echo -e $rpc_var;  break;;
+          read RPC_VAR; echo -e $RPC_VAR;  break;;
       esac
   done
   
   echo -e "\e[1m\e[32mEnter name of your operator:\e[0m"
-  read neonevm_user
-  echo Your operator name is $neonevm_user
+  read NEON_USER
+  echo Your operator name is $NEON_USER
   echo -e "\e[1m\e[32mTo install the operator, a Postgres database is required - enter the name of the database:\e[0m"
-  read postgres_db
-  echo Postgres Data Base name $postgres_db
+  read DB_NAME
+  echo Postgres Data Base name $DB_NAME
   echo -e "\e[1m\e[32mEnter the password for the database:\e[0m"
-  read -s postgres_password
+  read -s DB_PSWD
   
     echo -e "\e[1m\e[32mDelete Ansible after install?\e[0m"
   select dl in "Yes" "No"; do
@@ -54,6 +54,7 @@ install_operator () {
 
   ansible-galaxy collection install ansible.posix
   ansible-galaxy collection install community.general
+  ansible-galaxy collection install community.postgresql
 
   echo -e "\e[1m\e[32mDownloading Neon operator manager\e[0m"
   cmd="https://github.com/ElagabalxNode/neon-manager/archive/refs/heads/main.zip"
@@ -71,12 +72,13 @@ install_operator () {
   #echo "pwd: $(pwd)"
   #ls -lah ./
 
+
   echo -e "\e[1m\e[32mInstall NeonEVM Operator\e[0m"
   ansible-playbook --connection=local --inventory ./inventory/devnet.yml --limit local playbooks/install.yml -vvvv --extra-vars "{ \
-  'neonevm_solana_rpc': '$rpc_var', \
-  'postgres_db': 'neon-db', \
-  'neonevm_user': '$neonevm_user', \
-  'postgres_password': 'neon-proxy-pass' \
+  'neonevm_solana_rpc': '$RPC_VAR', \
+  'postgres_db': '$DB_NAME', \
+  'neonevm_user': '$NEON_USER', \
+  'postgres_password': '$DB_PSWD' \
   }"
 
   echo -e "\e[1m\e[32mUninstall ansible\e[0m"

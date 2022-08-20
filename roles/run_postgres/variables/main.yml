@@ -1,0 +1,4 @@
+#postgres
+postgres_db: "neon-db"
+postgres_user: "{{ neonevm_user }}"
+postgres_password: neon-proxy-pass

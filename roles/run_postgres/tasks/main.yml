@@ -1,38 +1,27 @@
----
+--- 
 
-- name: "Create app database"
-  postgresql_db:
-    state: present
+- name: Create the database specified in vars
+  become: true
+  become_user: postgres
+  postgresql_db: 
     name: "{{ postgres_db }}"
-  become: yes
-  become_user: {{ neonevm_user }}
-
-- name: "Create db user"
-  postgresql_user:
+    template: "'template0"
     state: present
-    name: "{{ neonevm_user }}"
+
+- name: User fot
+  become: true
+  become_user: postgres
+  postgresql_user: 
+    db: "{{ postgres_db }}"
+    name: "{{ postgres_user }}"
     password: "{{ postgres_password }}"
-  become: yes
-  become_user: {{ neonevm_user }}
+    priv: ALL
+    state: present
 
-- name: "Grant db user access to app db"
-  postgresql_privs:
-    type: database
-    database: "{{ postgres_db }}"
-    roles: "{{ neonevm_user }}"
-    grant_option: no
-    privs: all
-  become: yes
-  become_user: {{ neonevm_user }}
-
-- name: "Allow md5 connection for the db user"
-  postgresql_pg_hba:
-    dest: "~/data/pg_hba.conf"
-    contype: host
-    databases: all
-    method: md5
-    users: "{{ neonevm_user }}"
-    create: true
-  become: yes
-  become_user: {{ neonevm_user }}
-  notify: restart postgres
+- name: Ensure user does not have unnecessary permissions
+  become: true
+  become_user: postgres
+  postgresql_user: 
+    name: "{{ postgres_user }}"
+    role_attr_flags: NOSUPERUSER,NOCREATEDB
+    state: present
