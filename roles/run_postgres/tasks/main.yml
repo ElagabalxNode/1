@@ -5,7 +5,7 @@
   become_user: postgres
   postgresql_db: 
     name: "{{ postgres_db }}"
-    template: "'template0"
+    template: "template0"
     state: present
 
 - name: User fot
