@@ -5,7 +5,6 @@
       image: postgres:14.0
       name: postgres
       state: started
-      restart: always
       detach: yes
       tty: yes
       auto_remove: false
@@ -23,7 +22,6 @@
       image: neonlabsorg/proxy:v0.7.22
       name: neonEVM
       state: started
-      restart: always
       detach: yes
       tty: yes
       volumes: 
