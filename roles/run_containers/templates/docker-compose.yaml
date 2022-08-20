@@ -1,0 +1,28 @@
+---
+
+services:
+
+  postgresql_01:
+    image: postgres:14.0
+    container_name: postgresql_01
+    restart: always
+    volumes:
+      - /data/postgresql_01:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_DB: "{{ postgres_db }}"
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+
+  neonevm_02:
+    image: neonlabsorg/proxy:stable
+    container_name: neonEVM
+    restart: always
+    volumes:
+        - "{{ neonevm_solana_keypair }}:/root/.config/solana/id.json:rw"
+    environment:
+      CONFIG: devnet
+      POSTGRES_DB: "{{ postgres_db }}"
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      SOLANA_URL: "{{ neonevm_solana_rpc }}"

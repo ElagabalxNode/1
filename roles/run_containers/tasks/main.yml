@@ -1,0 +1,39 @@
+--- 
+
+  - name: deploy postgres docker container
+    docker_container:
+      image: postgres:14.0
+      name: postgres
+      state: started
+      restart: always
+      detach: yes
+      tty: yes
+      auto_remove: false
+      env: 
+        POSTGRES_HOST: 127.0.0.1
+        POSTGRES_DB: "{{ postgres_db }}"
+        POSTGRES_USER: "{{ postgres_user }}"
+        POSTGRES_PASSWORD: "{{ postgres_password }}"
+        POSTGRES_HOST_AUTH_METHOD: trust  
+      ports:
+        - 5432:5432
+
+  - name: deploy neonEVM docker container
+    docker_container:
+      image: neonlabsorg/proxy:v0.7.22
+      name: neonEVM
+      state: started
+      restart: always
+      detach: yes
+      tty: yes
+      volumes: 
+        - "{{ neonevm_solana_keypair }}:/root/.config/solana/id.json:rw"
+      auto_remove: false
+      env: 
+        CONFIG: devnet
+        POSTGRES_DB: "{{ postgres_db }}"
+        POSTGRES_USER: "{{ postgres_user }}"
+        POSTGRES_PASSWORD: "{{ postgres_password }}"
+        SOLANA_URL: "{{ neonevm_solana_rpc }}"
+      ports:
+        - "8090:90"
