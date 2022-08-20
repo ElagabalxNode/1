@@ -81,13 +81,13 @@ install_operator () {
   'postgres_password': '$DB_PSWD' \
   }"
 
-  echo -e "\e[1m\e[32mUninstall ansible\e[0m"
+  # echo -e "\e[1m\e[32mUninstall ansible\e[0m"
 
-  if [[ $deletea="yes" ]];
-  then
-  $pkg_manager remove ansible --yes
-  fi
-  break
+  # if [[ $deletea="yes" ]];
+  # then
+  # $pkg_manager remove ansible --yes
+  # fi
+  # break
   
 }
 
