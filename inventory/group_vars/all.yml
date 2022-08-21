@@ -23,7 +23,7 @@ postgres_user: "{{ neonevm_user }}"
 postgres_password: neon-proxy-pass
 
 #solana_config
-solana_version: "stable"
+solana_version: "v1.11.6"
 solana_rpc_port: 8899
 open_solana_ports_start: 8000
 open_solana_ports_end: 10000
