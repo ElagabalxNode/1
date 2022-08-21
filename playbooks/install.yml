@@ -4,8 +4,8 @@
     - 127.0.0.1
  
   roles:
-    - configure_ubuntu
-    - solana_cli
+    # - configure_ubuntu
+    # - solana_cli
     - set_keys
     - run_containers
     
