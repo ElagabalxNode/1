@@ -33,5 +33,7 @@
         POSTGRES_USER: "{{ postgres_user }}"
         POSTGRES_PASSWORD: "{{ postgres_password }}"
         SOLANA_URL: "{{ neonevm_solana_rpc }}"
+        EVM_LOADER: "eeLSJgWzzxrqKv1UxtRVVH8FX3qCQWUs9QuAjJpETGU"
+        NEON_TOKEN_MINT: "89dre8rZjLNft7HoupGiyxu3MNftR577ZYu8bHe2kK7g"
       ports:
         - "8090:90"
