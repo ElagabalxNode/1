@@ -28,12 +28,14 @@
 
 - name: create neon evm solana keypair if not already present
   shell: solana-keygen new -o "{{ neonevm_solana_keypair }}" --no-bip39-passphrase -s
+  environment:
+    PATH: "{{ env_path }}"
   become: true
   become_user: root
   args:
     chdir: "{{ neonevm_config_dir }}"
     creates: "{{ neonevm_solana_keypair }}" 
-  PATH: "{{ env_path }}"
+
 
 - name: ensure permissions on neonevm keypair
   file:
@@ -44,8 +46,9 @@
 
 - name: check neon evm pubkey
   shell: solana-keygen pubkey "{{ neonevm_solana_keypair }}"
+  environment:
+    PATH: "{{ env_path }}"  
   register: res_pubkey 
-  PATH: "{{ env_path }}"
 
 - name: save public key hash
   set_fact:
