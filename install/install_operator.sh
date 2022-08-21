@@ -1,12 +1,13 @@
 #!/bin/bash
 #set -x -e
 
-echo "|||__________________________________________________|||"
-echo "|||                                                  |||"
-echo "|||        ELAGABAL NEON OPERATOR INSTALLING         |||"
-echo "|||                      DEVNET                      |||"
-echo "|||      AUTOMATED ANSIBLE SCRIPT FOR COMMUNITY      |||"
-echo "|||__________________________________________________|||"
+echo -e "\e[1m\e[45\e32[|||__________________________________________________|||\e[0m"
+echo -e "\e[1m\e[45\e32[|||                                                  |||\e[0m"
+echo -e "\e[1m\e[45\e32[|||        ELAGABAL NEON OPERATOR INSTALLING         |||\e[0m"
+echo -e "\e[1m\e[45\e32[|||                      DEVNET                      |||\e[0m"
+echo -e "\e[1m\e[45\e32[|||      AUTOMATED ANSIBLE SCRIPT FOR COMMUNITY      |||\e[0m"
+echo -e "\e[1m\e[45\e32[|||__________________________________________________|||\e[0m"
+sleep 5
 
 install_operator () {
 
