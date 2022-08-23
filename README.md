@@ -24,12 +24,6 @@ Please use them, enjoy them and improve them.
   ````   
   Paste your key pair, save the file (ctrl-O) and exit (ctrl-X).
 
-
-  If you have a *vote account* key pair, create the key pair file (or upload it via scp):
-  ````shell
-   nano ~/vote-account-keypair.json
-  ````  
-  Paste your key pair, save the file (ctrl-O) and exit (ctrl-X).
 * Run this command…
 
 ````shell
@@ -45,6 +39,7 @@ That's it, you are all set!
 * [Neon docs](https://docs.neon-labs.org/docs)
 * [solana rpc role](https://github.com/rpcpool/solana-rpc-ansible)
 * [Neon discord operator chanel](https://discord.gg/vP47VSZsRZ)
+* [](https://medium.com/elagabalx/neon-evm-dbe7a7fd0ffa)
 
 ## Check out our communiti grow up
 
