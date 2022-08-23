@@ -1,5 +1,7 @@
 # Neon Web3 Proxy Manager
 
+<img src="docs/bnmanag.png" width=500>
+
 ### Automatic loading of Neon Web3 Proxy, installation of postgresql via docker compose, optimization of server performance and connection to the monitoring dashboard
  
 The [Neon EVM](https://neon-labs.org/) is an Ethereum-like environment that makes it possible for Solidity contracts and Ethereum-like transactions to function on Solana. In the case of the Neon EVM, Ethereum-like transactions are wrapped into Solana transactions by an intermediary [proxy](https://docs.neon-labs.org/docs/architecture/neon_evm_arch/#neon-web3-proxy-proxy) server and sent to the Neon EVM, which executes them in parallel. To facilitate this parallel execution of smart contracts, the Neon EVM ensures that each contract keeps its data in its own Solana storage, and account balances used to pay for Neon transactions are also separated.

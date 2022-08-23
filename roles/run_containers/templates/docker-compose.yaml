@@ -1,5 +1,15 @@
 ---
 
+version: '3'
+
+networks:
+  monitor-net:
+    driver: bridge
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
 services:
 
   postgresql_01:
@@ -9,10 +19,15 @@ services:
     volumes:
       - /data/postgresql_01:/var/lib/postgresql/data
     environment:
-      POSTGRES_HOST: 127.0.0.1
-      POSTGRES_DB: "{{ postgres_db }}"
-      POSTGRES_USER: "{{ postgres_user }}"
-      POSTGRES_PASSWORD: "{{ postgres_password }}"
+        POSTGRES_HOST: 127.0.0.1
+        POSTGRES_DB: "{{ postgres_db }}"
+        POSTGRES_USER: "{{ postgres_user }}"
+        POSTGRES_PASSWORD: "{{ postgres_password }}"
+        POSTGRES_HOST_AUTH_METHOD: trust  
+    ports:
+      - 5432:5432
+    networks:
+      - neon-net
 
   neonevm_02:
     image: neonlabsorg/proxy:stable
@@ -21,8 +36,76 @@ services:
     volumes:
         - "{{ neonevm_solana_keypair }}:/root/.config/solana/id.json:rw"
     environment:
-      CONFIG: devnet
-      POSTGRES_DB: "{{ postgres_db }}"
-      POSTGRES_USER: "{{ postgres_user }}"
-      POSTGRES_PASSWORD: "{{ postgres_password }}"
-      SOLANA_URL: "{{ neonevm_solana_rpc }}"
+        CONFIG: devnet
+        POSTGRES_DB: "{{ postgres_db }}"
+        POSTGRES_USER: "{{ postgres_user }}"
+        POSTGRES_PASSWORD: "{{ postgres_password }}"
+        SOLANA_URL: "{{ neonevm_solana_rpc }}"
+        EVM_LOADER: "eeLSJgWzzxrqKv1UxtRVVH8FX3qCQWUs9QuAjJpETGU"
+        NEON_TOKEN_MINT: "89dre8rZjLNft7HoupGiyxu3MNftR577ZYu8bHe2kK7g"
+    ports:
+      - "8090:90"
+    networks:
+      - neon-net      
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention=200h'
+      - '--web.enable-lifecycle'
+# restart: unless-stopped
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    networks:
+      - monitor-net
+
+  nodeexporter:
+    image: prom/node-exporter:latest
+    container_name: nodeexporter
+    user: root
+    privileged: true
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mountpoints=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    expose:
+    - 9100
+    networks:
+    - monitor-net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/datasources:/etc/grafana/datasources
+      - ./grafana/dashboards:/etc/grafana/dashboards
+      - ./grafana/setup.sh:/setup.sh
+    entrypoint: /setup.sh
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    networks:
+      - monitor-net
+
