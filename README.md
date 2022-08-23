@@ -18,8 +18,9 @@ Please use them, enjoy them and improve them.
 ### Quick Install
 
 * Log in to your server
-* 1) If you are not have a key pair file - script create it automatical
-* 1.1) If you are have the key pair file (you can also upload it via scp if you prefer):
+* If you are not have a key pair file - script create it automatical
+* If you are have the key pair file (you can also upload it via scp if you prefer):
+
   ````shell
   nano ~/validator-keypair.json
   ````   
@@ -32,7 +33,13 @@ Please use them, enjoy them and improve them.
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ElagabalxNode/neon-manager/main/install/install_operator.sh)"
 ````
 
-…and follow the wizard’s instructions (__enter your own Node name!__):
+…and follow the wizard’s instructions. 
+If your Solana RPC node is installed locally, select the appropriate menu item or If the RPC node has its own entrypoint, select the menu item and paste the address into the line.
+
+And enter your own:
+(__Operator name!__)
+(__Postgres DB name!__)
+(__Postgres DB password!__)
 
 That's it, you are all set!
 
