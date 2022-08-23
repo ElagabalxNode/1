@@ -35,26 +35,19 @@ Please use them, enjoy them and improve them.
 ````shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ElagabalxNode/neon-manager/main/install/install_operator.sh)"
 ````
-  <img src="docs/launch.gif" width=500>
-…and follow the wizard’s instructions (__enter your own Node name!__):
 
-  <img src="docs/wizard.gif" width=500>
+…and follow the wizard’s instructions (__enter your own Node name!__):
 
 That's it, you are all set!
 
-## Useful links
+## links
 
-* [Solana](https://solana.com/)
-* [Monitoring Dashboard](https://solana.thevalidators.io/)
-* [Validator docs](https://docs.solana.com/running-validator)
+* [Neon docs](https://docs.neon-labs.org/docs)
+* [solana rpc role](https://github.com/rpcpool/solana-rpc-ansible)
+* [Neon discord operator chanel](https://discord.gg/vP47VSZsRZ)
 
-## How you can support this project
+## Check out our communiti grow up
 
-- Join our Telegram community [t.me/thevalidators](https://t.me/thevalidators)
-- Fork, improve, and promote
-- Stake with [Joogh Validator](https://solanabeach.io/validator/DPmsofVJ1UMRZADgwYAHotJnazMwohHzRHSoomL6Qcao)
-- Donate Sol to [Joogh Validator Identity Account](https://joogh.io) on Solana: 8yjHdsCgx3bp2zEwGiWSMgwpFaCSzfYAHT1vk7KJBqhN
-- Donate BTC: bc1q9vkmfpmk77j2kcsdy2slnv6ld4ahg2g5guysvy
-
- 
-
+- Join our Medium [medium/elagabalx](https://medium.com/elagabalx)
+- Join our Discord community [discord/elagabalx](https://discord.gg/5ybg4wV3zU)
+- Donate Sol to [ElagabalX Validator Identity Account](https://solanabeach.io/validator/8gJCfKzr55gM6DtAaFqoWjBGAmsJ71mpHem6qJAASBU4) on Solana: 6m5vsg6XfsVUroo1zzZmB4YgFmV6ykLiwEXb6choovpc
