@@ -38,18 +38,18 @@ The following software should be installed on your Neon EVM proxy:
 
 OS
 Ubuntu 20.04 or later
-macOS Darwin 10.12 or later
-Docker
-Docker Compose
+
 Solana Cluster Requirements (optional)
+
 If you want to use a local Solana cluster, you need to meet the following requirements:
 
 Solana cluster with --enable-rpc-transaction-history enabled.
 Solana cluster with --enable-rpc-bigtable-ledger-storage enabled.
+
 Networking
 Internet service should be at least 300 Mbps.
 
-### Quick Install
+### Quick proxy Install
 
 * Log in to your server
 * If you are not have a key pair file - script create it automatical
