@@ -1,6 +1,6 @@
 # Neon Web3 Proxy Manager
 
-<img src="docs/bnmanag.png" width=500>
+<img src="docs/bnmanag.png" width=1000>
 
 ### Automatic loading of Neon Web3 Proxy, installation of postgresql via docker compose, optimization of server performance and connection to the monitoring dashboard
  
