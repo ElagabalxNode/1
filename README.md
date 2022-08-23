@@ -18,10 +18,12 @@ Please use them, enjoy them and improve them.
 ### Quick Install
 
 * Log in to your server
-* Create the key pair file (you can also upload it via scp if you prefer):
+* 1) If you are not have a key pair file - script create it automatical
+* 1.1) If you are have the key pair file (you can also upload it via scp if you prefer):
   ````shell
   nano ~/validator-keypair.json
   ````   
+  
   Paste your key pair, save the file (ctrl-O) and exit (ctrl-X).
 
 * Run this command…
