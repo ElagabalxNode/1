@@ -67,6 +67,7 @@ install_operator () {
   ansible-galaxy collection install ansible.posix
   ansible-galaxy collection install community.general
   ansible-galaxy collection install community.postgresql
+  ansible-galaxy collection install community.docker
 
   echo -e "\e[1m\e[32mDownloading Neon operator manager\e[0m"
   cmd="https://github.com/ElagabalxNode/neon-manager/archive/refs/heads/main.zip"
