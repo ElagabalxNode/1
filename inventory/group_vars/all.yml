@@ -14,7 +14,7 @@ neonevm_chains:
 
 #neonevm  
 neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
-neonevm_config_dir: /etc/neonevm/
+neonevm_config_dir: /home/{{ neonevm_user }}/
 neonevm_solana_keypair: "{{ neonevm_config_dir }}neonevm-keypair.json"
 
 #postgres

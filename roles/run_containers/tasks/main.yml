@@ -1,34 +1,51 @@
 --- 
 
-  - name: deploy postgres docker container
-    docker_container:
-      image: postgres:14.0
-      name: postgres
-      state: started
-      detach: yes
-      tty: yes
-      auto_remove: false
-      env: 
-        POSTGRES_DB: "{{ postgres_db }}"
-        POSTGRES_USER: "{{ postgres_user }}"
-        POSTGRES_PASSWORD: "{{ postgres_password }}"
-        POSTGRES_HOST_AUTH_METHOD: trust  
+- name: copy Docker Compose files
+  copy:
+    src: templates/{{ item }}
+    dest: "{{ neonevm_config_dir }}/{{ item }}"
+  loop:
+  - docker-compose.yaml.j2
 
-  - name: deploy neonEVM docker container
-    docker_container:
-      image: neonlabsorg/proxy:v0.7.22
-      name: neonEVM
-      state: started
-      detach: yes
-      tty: yes
-      volumes: 
-        - "{{ neonevm_solana_keypair }}:/root/.config/solana/id.json:rw"
-      auto_remove: false
-      env: 
-        CONFIG: devnet
-        POSTGRES_DB: "{{ postgres_db }}"
-        POSTGRES_USER: "{{ postgres_user }}"
-        POSTGRES_PASSWORD: "{{ postgres_password }}"
-        SOLANA_URL: "{{ neonevm_solana_rpc }}"
-        EVM_LOADER: "eeLSJgWzzxrqKv1UxtRVVH8FX3qCQWUs9QuAjJpETGU"
-        NEON_TOKEN_MINT: "89dre8rZjLNft7HoupGiyxu3MNftR577ZYu8bHe2kK7g"
+# use files parameter to use multiple docker-compose.yml files
+- name: deploy Docker Compose stack
+  community.docker.docker_compose:
+    project_src: "{{ neonevm_config_dir }}/{{ item }}"
+    files:
+    - docker-compose.yml
+
+
+
+  # - name: deploy postgres docker container
+  #   docker_container:
+  #     image: postgres:14.0
+  #     name: postgres
+  #     state: started
+  #     entrypoint: proxy/run-dbcreation.sh
+  #     detach: yes
+  #     tty: yes
+  #     auto_remove: false
+  #     env: 
+  #       POSTGRES_DB: "{{ postgres_db }}"
+  #       POSTGRES_USER: "{{ postgres_user }}"
+  #       POSTGRES_PASSWORD: "{{ postgres_password }}"
+  #       POSTGRES_HOST_AUTH_METHOD: trust  
+
+  # - name: deploy neonEVM docker container
+  #   docker_container:
+  #     image: neonlabsorg/proxy:v0.7.22
+  #     name: neonEVM
+  #     state: started
+  #     detach: yes
+  #     tty: yes
+  #     volumes: 
+  #       - "{{ neonevm_solana_keypair }}:/root/.config/solana/id.json:rw"
+  #     auto_remove: false
+  #     env: 
+  #       CONFIG: devnet
+  #       POSTGRES_DB: "{{ postgres_db }}"
+  #       POSTGRES_USER: "{{ postgres_user }}"
+  #       POSTGRES_PASSWORD: "{{ postgres_password }}"
+  #       SOLANA_URL: "{{ neonevm_solana_rpc }}"
+  #       EVM_LOADER: "eeLSJgWzzxrqKv1UxtRVVH8FX3qCQWUs9QuAjJpETGU"
+  #       NEON_TOKEN_MINT: "89dre8rZjLNft7HoupGiyxu3MNftR577ZYu8bHe2kK7g"
