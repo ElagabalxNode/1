@@ -3,7 +3,7 @@
 - name: copy Docker Compose files
   template:
     src: docker-compose.yaml.j2
-    dest: "{{ neonevm_config_dir }}/{{ item }}"
+    dest: "{{ neonevm_config_dir }}/docker-compose.yaml"
     owner: "{{ neonevm_user }}"
     group: "{{ neonevm_user }}"
     mode: 0755
