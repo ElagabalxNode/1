@@ -2,7 +2,7 @@
 
 - name: copy Docker Compose files
   copy:
-    src: templates/{{ item }}
+    src: files/{{ item }}
     dest: "{{ neonevm_config_dir }}/{{ item }}"
   loop:
   - docker-compose.yaml.j2
